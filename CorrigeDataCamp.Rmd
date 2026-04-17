@@ -149,5 +149,12 @@ cat("\nSin entrega                :", sum( is.na(alumnos_notas$puntos)), "\n")
 print(head(alumnos_notas, 10))
 ```
 
+#Guardar AlumnosNotas.xlsx
+```{r}
+write.xlsx(alumnos_notas, file = "AlumnosNotas.xlsx", rowNames = FALSE)
+cat("\nGuardado: AlumnosNotas.xlsx\n")
+ 
+cat("\n=== PROCESO COMPLETADO ===\n")
+```
 
 
