@@ -120,6 +120,34 @@ library(openxlsx)
 write.xlsx(evalua_df, file = "NotasRIntermedio.xlsx", rowNames = FALSE)
 cat("\nGuardado: NotasRIntermedio.xlsx\n")
 ```
+#Cargar los alumnos matriculados 
+```{r}
+alumnos_df <- read.xlsx("AlumnosTD25_26.xlsx")
+ 
+cat("\nAlumnos matriculados:", nrow(alumnos_df), "\n")
+cat("Columnas:", paste(names(alumnos_df), collapse = ", "), "\n")
+```
+
+
+#Combinar alumnos matriculados con las notas
+```{r}
+alumnos_notas <- merge(
+  x     = alumnos_df,
+  y     = evalua_df,
+  by.x  = "Apellido(s)",
+  by.y  = "apellidos",
+  all.x = TRUE
+)
+
+alumnos_notas <- alumnos_notas[order(alumnos_notas[["Apellido(s)"]]), ]
+rownames(alumnos_notas) <- NULL
+
+cat("\nTotal alumnos matriculados :", nrow(alumnos_notas))
+cat("\nCon entrega registrada     :", sum(!is.na(alumnos_notas$puntos)))
+cat("\nSin entrega                :", sum( is.na(alumnos_notas$puntos)), "\n")
+
+print(head(alumnos_notas, 10))
+```
 
 
 
