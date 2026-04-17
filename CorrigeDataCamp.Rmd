@@ -9,6 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+#Descomprimir
 ```{r}
 
 library(readxl)
@@ -49,8 +50,14 @@ cat("Ficheros PDF encontrados:", length(ficheros_pdf), "\n")
 
 
 ```
-```{r}
 
+#Todos usaron "puntos.txt" como nombre?
+```{r}
+nombres_txt <- basename(ficheros_puntos)
+cat("\nVariantes de nombre usadas para el fichero de puntos:\n")
+print(table(nombres_txt))
+
+#No todos usarun "puntos.txt" como nombre
 
 ```
 
