@@ -113,6 +113,13 @@ evalua_df
   
 ```
 
+#Guardar evalua_df en NotasRIntermedio.xlsx
+```{r}
+library(openxlsx)
+
+write.xlsx(evalua_df, file = "NotasRIntermedio.xlsx", rowNames = FALSE)
+cat("\nGuardado: NotasRIntermedio.xlsx\n")
+```
 
 
 
