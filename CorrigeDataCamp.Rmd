@@ -1,0 +1,60 @@
+---
+title: "CorrigeDataCamp"
+author: "Edu Carbó Bernardo"
+date: "2026-04-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+
+library(readxl)
+
+fichero_zip <- "entregas.zip"
+
+ruta_excel <- "C:/Users/dolob/OneDrive/Escritorio/CIENCIA DE DATOS/PRIMERO/SEGUNDO CUATRIMESTRE/ASIGNATURAS/TRATAMIENTO DE LOS DATOS/CorrigeDataCamp/AlumnosTD25_26.xlsx"
+AlumnosTD25_26 <- read_excel(ruta_excel)
+
+
+fichero_zip <- "entregas.zip"
+carpeta_salida <- "entregas_descomprimidas"
+
+
+unzip(fichero_zip, exdir = carpeta_salida)
+
+
+
+ficheros_puntos <- list.files(path = carpeta_salida,
+                              pattern = "\\.txt$",
+                              recursive = TRUE,
+                              full.names = TRUE
+)
+ 
+
+cat("Ficheros .txt encontrados:", length(ficheros_puntos), "\n")
+print(ficheros_puntos)
+
+ficheros_pdf <- list.files(path = carpeta_salida,
+                           pattern = "\\.pdf$",
+                           recursive = TRUE,
+                           full.names = TRUE
+)
+ 
+cat("Ficheros PDF encontrados:", length(ficheros_pdf), "\n")
+
+
+
+
+```
+```{r}
+
+
+```
+
+
+
+
+
