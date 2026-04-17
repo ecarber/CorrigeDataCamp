@@ -60,7 +60,58 @@ print(table(nombres_txt))
 #No todos usarun "puntos.txt" como nombre
 
 ```
+#Creo el dataframe con la información de cada entrega
+```{r}
+apellidos_vec <- c()   # apellidos del alumno
+puntos_vec    <- c()   # puntuación numérica
+nomfile_vec   <- c()   # nombre del fichero .txt
+contenido_vec <- c()   # contenido del fichero .txt como texto
 
+for (ruta in ficheros_puntos) {
+  nombre_carpeta <- basename(dirname(ruta))
+  # Separamos por "_" y nos quedamos con el primer trozo
+  primer_trozo <- strsplit(nombre_carpeta, "_")[[1]][1]
+  # El primer trozo es "Apellidos, Nombre" -> nos quedamos solo con los apellidos
+  apellidos <- strsplit(primer_trozo, ",")[[1]][1]
+  apellidos <- trimws(apellidos)   # quitamos espacios sobrantes
+  
+  nom_fichero <- basename(ruta)
+  
+  lineas <- readLines(ruta, warn = FALSE)
+  contenido <- paste(lineas, collapse = " ")
+  
+  # --- Extraer la puntuación numérica del contenido ---
+  posicion <- regexpr("[0-9]+", contenido)
+  if (posicion > 0) {
+    puntos <- as.integer(regmatches(contenido, posicion))
+  } else {
+    puntos <- NA   
+  }
+  
+  # --- Guardamos los datos en los vectores ---
+  apellidos_vec <- c(apellidos_vec, apellidos)
+  puntos_vec    <- c(puntos_vec,    puntos)
+  nomfile_vec   <- c(nomfile_vec,   nom_fichero)
+  contenido_vec <- c(contenido_vec, contenido)
+}
+
+evalua_df <- data.frame(
+  apellidos = apellidos_vec,
+  puntos    = puntos_vec,
+  NomFile   = nomfile_vec,
+  Puntos    = contenido_vec,
+  stringsAsFactors = FALSE
+)
+
+evalua_df <- evalua_df[order(evalua_df$apellidos), ]
+rownames(evalua_df) <- NULL
+
+cat("\nData frame evalua_df:\n")
+print(evalua_df)
+
+evalua_df
+  
+```
 
 
 
